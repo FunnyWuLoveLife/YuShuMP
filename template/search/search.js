@@ -30,7 +30,7 @@ function initMindKeys(keys) {
   __mindKeys = keys;
 }
 
-function init(that, barHeight, keys, isShowKey, isShowHis, callBack) {
+function init(that, barHeight, keys, isShowKey, callBack) {
   var temData = {};
   var view = {
     barHeight: barHeight,
@@ -42,12 +42,8 @@ function init(that, barHeight, keys, isShowKey, isShowHis, callBack) {
   } else {
     view.isShowSearchKey = isShowKey;
   }
-
-  if (typeof (isShowHis) == 'undefined') {
-    view.isShowSearchHistory = true;
-  } else {
-    view.isShowSearchHistory = isShowHis;
-  }
+  
+  view.isShowSearchHistory = false;
   temData.keys = keys;
   wx.getSystemInfo({
     success: function (res) {
@@ -63,7 +59,6 @@ function init(that, barHeight, keys, isShowKey, isShowHis, callBack) {
   if (typeof (callBack) == "function") {
     callBack();
   }
-
   getHisKeys(that);
 }
 
@@ -98,14 +93,6 @@ function wxSearchFocus(e, that, callBack) {
   if (typeof (callBack) == "function") {
     callBack();
   }
-  // if(typeof(temData) != "undefined"){
-  //   temData.view.hidden= false;
-  //   that.setData({
-  //     wxSearchData:temData
-  //   });
-  // }else{
-
-  // }
 }
 function wxSearchBlur(e, that, callBack) {
   var temData = that.data.wxSearchData;
@@ -136,6 +123,7 @@ function wxSearchKeyTap(e, that, callBack) {
   if (typeof (callBack) == "function") {
     callBack();
   }
+
 }
 function getHisKeys(that) {
   var value = [];
@@ -145,24 +133,28 @@ function getHisKeys(that) {
       // Do something with return value
       var temData = that.data.wxSearchData;
       temData.his = value;
-      temData.view.isShowSearchHistory = true
       that.setData({
         wxSearchData: temData
       });
-      // 显示搜索历史
-      showOrHideSearchHistory(that, true)
-    } else {
-      // 隐藏搜索历史
-      showOrHideSearchHistory(that,false)
-    }
+    } 
   } catch (e) {
     // Do something when catch error
   }
-
+  showOrHideSearchHistory(that)
 }
-function showOrHideSearchHistory(that,flag){
+function showOrHideSearchHistory(that){
+  // 是否显示历史
   var temData = that.data.wxSearchData;
-  temData.view.isShowSearchHistory = flag
+  var value = wx.getStorageSync('wxSearchHisKeys')
+  if (value.length == 0){
+    temData.view.isShowSearchHistory = false
+  }else{
+    temData.view.isShowSearchHistory = true
+  }
+  that.setData({
+    wxSearchData: temData
+  })
+  
 }
 function wxSearchAddHisKey(that) {
   wxSearchHiddenPancel(that);
@@ -191,8 +183,6 @@ function wxSearchAddHisKey(that) {
       }
     })
   }
-
-
 }
 function wxSearchDeleteKey(e, that) {
   var text = e.target.dataset.key;
@@ -216,12 +206,18 @@ function wxSearchDeleteAll(that) {
       that.setData({
         wxSearchData: temData
       });
-      // 隐藏搜索历史
-      showOrHideSearchHistory(that, false)
+      // 判断是否显示搜索历史
+      showOrHideSearchHistory(that)
     }
   })
 }
-
+function clearInput(e,that){  
+  var temData = that.data.wxSearchData
+  temData.value = ""
+  that.setData({
+    wxSearchData: temData
+  });
+}
 
 
 module.exports = {
@@ -235,5 +231,6 @@ module.exports = {
   wxSearchAddHisKey: wxSearchAddHisKey,
   wxSearchDeleteKey: wxSearchDeleteKey,
   wxSearchDeleteAll: wxSearchDeleteAll,
-  wxSearchHiddenPancel: wxSearchHiddenPancel
+  wxSearchHiddenPancel: wxSearchHiddenPancel,
+  clearInput: clearInput
 }
