@@ -32,6 +32,12 @@
   height: 12px;
   margin: auto;
 }
+
+.sweep{
+  width: 18px;
+  height: 18px;
+  margin: auto;
+}
 .wxSearch-button{
   flex: 1;
   border: none !important;

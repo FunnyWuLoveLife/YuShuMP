@@ -1,4 +1,4 @@
-// pages/home/home.js
+// pages/category/category.js
 var WxSearch = require('../../template/search/search.js')
 var app = getApp()
 Page({
@@ -15,18 +15,27 @@ Page({
     //初始化的时候渲染wxSearchdata
     // TODO 获取热门搜索
     WxSearch.init(that, 53, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
-    WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
-  onShow:function(){
+  onShow: function () {
     console.log('onShow')
   },
   wxSearchFn: function (e) {
     var that = this
     WxSearch.wxSearchAddHisKey(that);
   },
-  clearInput: function(e){
+  clearInput: function (e) {
     var that = this
-    WxSearch.clearInput(e,that)
+    WxSearch.clearInput(e, that)
+  },
+  sweep: function (e) {
+    // 允许从相机和相册扫码
+    wx.scanCode({
+      success: (res) => {
+        var isbn = res.result
+        // TODO完善扫码逻辑
+        console.log('isbn',isbn)
+      }
+    })
   },
   wxSearchInput: function (e) {
     var that = this
@@ -52,7 +61,7 @@ Page({
   },
   wxSearchDeleteAll: function (e) {
     var that = this;
-    WxSearch.wxSearchDeleteAll(that);
+    WxSearch.wxSearchDeleteAll(e, that);
   },
   wxSearchTap: function (e) {
     var that = this

@@ -1,9 +1,11 @@
-<!--pages/home/home.wxml-->
+<!--pages/category/category.wxml-->
 <import src="/template/search/search.wxml" />
 
 <view class="wxSearch-section">
   <view class="wxSearch-pancel">
     <view class="wxSearch-input">
+      <image src="/images/icons/sweep.png" class ="sweep" bindtap="sweep"/>
+      <view class='vertical-line' />
       <input class="wxSearch-input" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="搜索" />
       <image src="/images/icons/close.png" class="clear-seach-box" bindtap='clearInput'></image>
     </view>

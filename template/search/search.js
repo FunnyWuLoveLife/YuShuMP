@@ -26,10 +26,6 @@ function initColors(colors) {
   __keysColor = colors;
 }
 
-function initMindKeys(keys) {
-  __mindKeys = keys;
-}
-
 function init(that, barHeight, keys, isShowKey, callBack) {
   var temData = {};
   var view = {
@@ -185,6 +181,7 @@ function wxSearchAddHisKey(that) {
   }
 }
 function wxSearchDeleteKey(e, that) {
+  clearInput(e,that)
   var text = e.target.dataset.key;
   var value = wx.getStorageSync('wxSearchHisKeys');
   value.splice(value.indexOf(text), 1);
@@ -196,7 +193,7 @@ function wxSearchDeleteKey(e, that) {
     }
   })
 }
-function wxSearchDeleteAll(that) {
+function wxSearchDeleteAll(e,that) {
   wx.removeStorage({
     key: 'wxSearchHisKeys',
     success: function (res) {
@@ -207,6 +204,7 @@ function wxSearchDeleteAll(that) {
         wxSearchData: temData
       });
       // 判断是否显示搜索历史
+      clearInput(e,that)
       showOrHideSearchHistory(that)
     }
   })
@@ -223,7 +221,6 @@ function clearInput(e,that){
 module.exports = {
   init: init,
   initColor: initColors,
-  initMindKeys: initMindKeys,
   wxSearchInput: wxSearchInput,
   wxSearchFocus: wxSearchFocus,
   wxSearchBlur: wxSearchBlur,

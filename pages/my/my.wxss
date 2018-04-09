@@ -1,1 +1,26 @@
 /* pages/my/my.wxss */
+
+.head {
+  width: 100%;
+  height: 240rpx;
+  background-color: #515151;
+}
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+}
+.userinfo-avatar {
+  width: 200rpx;
+  height: 200rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  margin-left:20rpx; 
+  color: #aaa;
+  font-size: 50rpx;
+}
