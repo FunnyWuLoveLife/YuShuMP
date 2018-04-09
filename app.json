@@ -2,8 +2,7 @@
   "pages": [
     "pages/my/my",
     "pages/category/category",
-    "pages/wish/wish",
-    "pages/test/test"
+    "pages/wish/wish"
   ],
   "window": {
     "backgroundTextStyle": "light",
