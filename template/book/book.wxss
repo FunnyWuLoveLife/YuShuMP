@@ -1,0 +1,8 @@
+.book {
+  width: 200rpx;
+  height: 400rpx;
+}
+.book image{
+  width: 240rpx;
+  height: 300rpx;
+}

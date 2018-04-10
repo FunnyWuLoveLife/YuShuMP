@@ -1,0 +1,6 @@
+<template name="book">
+  <view class="book">
+    <image src='https://img3.doubanio.com/lpic/s3435132.jpg' mode="scaleToFill"></image>
+    <text>Python源码剖析</text>
+  </view>
+</template>
