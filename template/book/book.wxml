@@ -1,6 +1,10 @@
-<template name="book">
-  <view class="book">
-    <image src='https://img3.doubanio.com/lpic/s3435132.jpg' mode="scaleToFill"></image>
-    <text>Python源码剖析</text>
+<template name="books">
+  <view class='book-container'>
+    <block wx:for="{{books}}" wx:key="key">
+      <view class="book {{index%3==1?'middle':''}}">
+        <image src="{{item.image}}" mode="aspectFill"></image>
+        <text>{{item.title}}</text>
+      </view>
+    </block>
   </view>
 </template>

@@ -1,6 +1,10 @@
+class Config {
+  constructor() {
 
-var baseUrl = "http://127.0.0.1:8888"
-
-module.exports = {
-  baseUrl: baseUrl
+  }
 }
+
+Config.baseUrl = "http://127.0.0.1:8888";
+
+
+export { Config };

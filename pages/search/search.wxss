@@ -1,4 +1,5 @@
 /* pages/search/search.wxss */
+@import "/template/book/book.wxss";
 
 .wxSearch {
   position: absolute;

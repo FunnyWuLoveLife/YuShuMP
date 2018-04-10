@@ -1,8 +1,27 @@
-.book {
-  width: 200rpx;
-  height: 400rpx;
+.book-container {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
 }
-.book image{
-  width: 240rpx;
-  height: 300rpx;
+
+.book {
+  width: 30%;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.book image {
+  width: 220rpx;
+  height: 260rpx;
+  /* border-radius: 120rpx; */
+}
+.book text {
+  width: 220rpx;
+  height: 260rpx;
+  font-size: 30rpx;
+}
+.book-items.middle {
+  width: 30%;
+  margin-bottom: 20rpx;
+  text-align: center;
 }

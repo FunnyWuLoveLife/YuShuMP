@@ -1,16 +1,19 @@
 <!--pages/search/search.wxml-->
+<import src="/template/book/book.wxml" />
+
 <view class="wxSearch-section">
   <view class="wxSearch-pancel">
     <view class="wxSearch-input">
       <image src="/images/icons/sweep.png" class="sweep" bindtap="sweep" />
       <view class='vertical-line' />
-      <input class="wxSearch-input" bindinput="wxSearchInput" bindfocus="wxSearchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="搜索" />
+      <input class="wxSearch-input" bindfocus="wxSearchFocus" value="{{wxSearchData.value}}"
+       placeholder="搜索" />
       <image src="/images/icons/close.png" class="clear-seach-box" bindtap='clearInput'></image>
     </view>
     <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
   </view>
 </view>
-<view class="wxSearch" bindtap="wxSearchTap" style="display:{{wxSearchData.view.isShow ? 'block':'none'}};height:{{wxSearchData.view.seachHeight}}px;top:{{wxSearchData.view.barHeight}}px;">
+<view class="wxSearch" bindtap="wxSearchTap"  style="display:{{wxSearchData.view.isShow ? 'block':'none'}};height:{{wxSearchData.view.seachHeight}}px;top:{{wxSearchData.view.barHeight}}px;">
   <view class="wxSearchInner">
     <view class="wxSearchMindKey">
       <view class="wxSearchMindKeyList">
@@ -33,7 +36,7 @@
       <view wx:if="{{wxSearchData.his[0]}}" class="wxSearchHistoryList">
         <block wx:for="{{wxSearchData.his}}" wx:key="key">
           <view class="wxSearchHistoryItem">
-            <text class="wxSearchHistoryItemText" data-key="{{item}}">{{item}}</text>
+            <text class="wxSearchHistoryItemText" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</text>
             <text class="wxSearchHistoryItemDel" bindtap="wxSearchDeleteKey" data-key="{{item}}" data-key="{{item}}">删除</text>
           </view>
         </block>
@@ -45,6 +48,12 @@
     </view>
   </view>
 </view>
+<loading hidden="{{loadingHidden}}">
+  加载中...
+</loading>
 <view class="container">
+  <view hidden='{{book.hide}}'>
+    <template is="books" data="{{books:book.data.books}}" />
+  </view>
 
 </view>

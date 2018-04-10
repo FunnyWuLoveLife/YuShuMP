@@ -1,53 +1,66 @@
 // pages/search/search.js
-var Config = require('../../config.js')
+import {
+  Book
+} from 'book-model.js';
+var book = new Book(); //实例化 home 的推荐页面
 
 var __mindKeys = [];
 Page({
   data: {
+    loadingHidden: true,
+    wxSearchData: {
+      view: {
+        barHeight: 53,
+        isShow: false,
+        isShowSearchHistory: false,
+        isShowSearchKey: true,
+        seachHeight: 451
+      },
+      his: [],
+    },
+    book: {
+      hide: true,
+      data: []
+    }
   },
   onLoad: function () {
-    console.log('onLoad')
+    this._onLoad()
+  },
+  /*加载所有数据*/
+  _onLoad: function () {
     var that = this
     //初始化的时候渲染wxSearchdata
     // TODO 获取热门搜索
-    this.init(53, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
-  },
-  onShow: function () {
-    console.log('onShow')
-  },
-  init: function (barHeight, keys, isShowKey, callBack) {
-    var that = this
-
-    var temData = {};
-    var view = {
-      barHeight: barHeight,
-      isShow: false
-    }
-
-    if (typeof (isShowKey) == 'undefined') {
-      view.isShowSearchKey = true;
-    } else {
-      view.isShowSearchKey = isShowKey;
-    }
-
-    view.isShowSearchHistory = false;
-    temData.keys = keys;
+    var temData = that.data.wxSearchData
+    temData.keys = ['java', '小程序', 'python', 'php', 'web']
+    //获取系统信息
     wx.getSystemInfo({
       success: function (res) {
         var wHeight = res.windowHeight;
-        view.seachHeight = wHeight - barHeight;
-        temData.view = view;
+        temData.view.seachHeight = wHeight - temData.view.barHeight;
         that.setData({
           wxSearchData: temData
         });
       }
     })
-
-    if (typeof (callBack) == "function") {
-      callBack();
-    }
-    that.getHisKeys();
+    this.getHisKeys()
   },
+
+  /* 业务逻辑 start */
+  search: function (q) {
+    var that = this
+    book.searchBook(q, (res) => {
+      var temData = that.data.book
+      temData.hide = false
+      temData.data = res.data
+      that.setData({
+        book: temData
+      })
+      that.wxSearchHiddenPancel()
+      that.wxSearchAddHisKey(q);
+    })
+  },
+  /* 扫一扫事件 */
   sweep: function (e) {
     // 允许从相机和相册扫码
     wx.scanCode({
@@ -58,81 +71,52 @@ Page({
       }
     })
   },
-  wxSearchFocus: function (e) {
-    var temData = this.data.wxSearchData;
-    temData.view.isShow = true;
-    this.setData({
-      wxSearchData: temData
-    });
-    //回调
-    if (typeof (callBack) == "function") {
-      callBack();
-    }
-  },
-  wxSearchAddHisKey: function () {
-    var that = this
-
-    that.wxSearchHiddenPancel();
-    var text = that.data.wxSearchData.value;
-    if (typeof (text) == "undefined" || text.length == 0) { return; }
-    var value = wx.getStorageSync('wxSearchHisKeys');
-    if (value) {
-      if (value.indexOf(text) < 0) {
-        value.unshift(text);
-      }
-      wx.setStorage({
-        key: "wxSearchHisKeys",
-        data: value,
-        success: function () {
-          that.getHisKeys();
-        }
-      })
-    } else {
-      value = [];
-      value.push(text);
-      wx.setStorage({
-        key: "wxSearchHisKeys",
-        data: value,
-        success: function () {
-          that.getHisKeys();
-        }
-      })
-    }
-  },
+  /* 搜索 */
   wxSearchFn: function (e) {
     var that = this
     var keyword = that.data.wxSearchData.value
-    wx.request({
-      url: Config.baseUrl + '/api/book/search',
-      method: 'GET',
-      data: {
-        q: keyword
-      },
-      success: function (res) {
-        that.showSearchResult(res.data)
-      }
-    })
-    this.wxSearchAddHisKey();
+    that.search(keyword)
   },
-  clearInput: function (e) {
-    var that = this
+  /* 历史搜索记录点击事件 */
+  wxSearchKeyTap: function (e) {
 
-    var temData = that.data.wxSearchData
-    temData.value = ""
+    var temData = this.data.wxSearchData;
+    var keyword = book.getDataSet(e, 'key')
+    temData.value = keyword;
     this.setData({
       wxSearchData: temData
     });
+    this.search(keyword)
+
   },
-  sweep: function (e) {
-    // 允许从相机和相册扫码
-    wx.scanCode({
-      success: (res) => {
-        var isbn = res.result
-        // TODO完善扫码逻辑
-        console.log('isbn', isbn)
-      }
-    })
+  /* 业务逻辑 end */
+
+  /* 添加搜索历史 */
+  wxSearchAddHisKey: function (key) {
+    var that = this
+
+    if (typeof (key) == "undefined" || key.length == 0) {
+      return
+    }
+    var value = wx.getStorageSync('wxSearchHisKeys');
+    if (!value) {
+      value = []
+    }
+
+    if (value.indexOf(key) < 0) {
+      value.unshift(key);
+      wx.setStorage({
+        key: "wxSearchHisKeys",
+        data: value,
+        success: function () {
+          that.getHisKeys();
+        }
+      })
+    }
+    that.wxSearchHiddenPancel();
   },
+
+
   wxSearchInput: function (e) {
     var temData = this.data.wxSearchData;
     var text = e.detail.value;
@@ -149,65 +133,36 @@ Page({
     }
     temData.value = text;
     temData.mindKeys = mindKeys;
-    that.setData({
+    this.setData({
       wxSearchData: temData
     });
   },
 
-  wxSearchDeleteAll: function (e) {
-    var that = this;
-    wx.removeStorage({
-      key: 'wxSearchHisKeys',
-      success: function (res) {
-        var value = [];
-        var temData = that.data.wxSearchData;
-        temData.his = value;
-        that.setData({
-          wxSearchData: temData
-        });
-        // 判断是否显示搜索历史
-        that.clearInput(e)
-        that.showOrHideSearchHistory(that)
-      }
-    })
-  },
-  wxSearchTap: function (e) {
-    var that = this
-    this.wxSearchHiddenPancel(that);
-  },
   showSearchResult: function (data) {
     console.log(data)
   },
-  showOrHideSearchHistory: function () {
-    // 是否显示历史
-    var temData = this.data.wxSearchData;
-    var value = wx.getStorageSync('wxSearchHisKeys')
-    if (value.length == 0) {
-      temData.view.isShowSearchHistory = false
-    } else {
-      temData.view.isShowSearchHistory = true
-    }
-    this.setData({
-      wxSearchData: temData
-    })
-  },
+
+
+  /* 加载缓存中的历史搜索记录 */
   getHisKeys: function () {
     var value = [];
     try {
       value = wx.getStorageSync('wxSearchHisKeys')
-      if (value) {
-        // Do something with return value
-        var temData = this.data.wxSearchData;
-        temData.his = value;
-        this.setData({
-          wxSearchData: temData
-        });
+      var temData = this.data.wxSearchData;
+      if (value.length == 0) {
+        temData.view.isShowSearchHistory = false
+      } else {
+        temData.view.isShowSearchHistory = true
       }
+      temData.his = value
+      this.setData({
+        wxSearchData: temData
+      })
     } catch (e) {
       // Do something when catch error
     }
-    this.showOrHideSearchHistory()
   },
+  /* 隐藏搜索历史记录框 */
   wxSearchHiddenPancel: function () {
     var temData = this.data.wxSearchData;
     temData.view.isShow = false;
@@ -215,22 +170,47 @@ Page({
       wxSearchData: temData
     });
   },
-  wxSearchBlur: function (e) {
-    // 搜索输入框失去焦点时处理事件
-    var that = this
-    var temData = this.data.wxSearchData;
-    temData.value = e.detail.value;
-    // that.setData({
-    //   wxSearchData: temData
-    // });
-    if (typeof (callBack) == "function") {
-      callBack();
-    }
+
+  /* 搜索框以外的地方的点击事件 */
+  wxSearchTap: function (e) {
+    this.wxSearchHiddenPancel();
   },
+  /* 删除所有历史记录事件 */
+  wxSearchDeleteAll: function (e) {
+    var that = this;
+    wx.removeStorage({
+      key: 'wxSearchHisKeys',
+      success: function (res) {
+        var temData = that.data.wxSearchData;
+        temData.his = [];
+        that.setData({
+          wxSearchData: temData
+        });
+      }
+    })
+  },
+  /* 输入框聚焦事件 */
+  wxSearchFocus: function (e) {
+    var temData = this.data.wxSearchData;
+    temData.view.isShow = true;
+    this.setData({
+      wxSearchData: temData
+    });
+  },
+  /* 输入框清空事件 */
+  clearInput: function (e) {
+    var that = this
+
+    var temData = that.data.wxSearchData
+    temData.value = ""
+    this.setData({
+      wxSearchData: temData
+    });
+  },
+  /* 删除单个搜索记录 */
   wxSearchDeleteKey: function (e) {
     var that = this
 
-    that.clearInput(e)
     var text = e.target.dataset.key;
     var value = wx.getStorageSync('wxSearchHisKeys');
     value.splice(value.indexOf(text), 1);
@@ -241,19 +221,5 @@ Page({
         that.getHisKeys();
       }
     })
-  },
-  wxSearchKeyTap: function (e) {
-    //回调
-    var temData = this.data.wxSearchData;
-    temData.value = e.target.dataset.key;
-    console.log(temData.value)
-    this.setData({
-      wxSearchData: temData
-    });
-    console.log(this.data.wxSearchData.value)
-    if (typeof (callBack) == "function") {
-      callBack();
-    }
-    this.wxSearchAddHisKey();
   },
 })
