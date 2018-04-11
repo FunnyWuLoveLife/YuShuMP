@@ -1,0 +1,41 @@
+<!--pages/category/category.wxml-->
+<import src="/template/book/book.wxml" />
+
+<view class="wxSearch-section">
+  <view class="wxSearch-pancel">
+    <view class="wxSearch-input">
+      <image src="/images/icons/sweep.png" class="sweep" bindtap="sweep" />
+      <view class='vertical-line' />
+      <input class="wxSearch-input" placeholder="搜索" disabled="false" bindtap='wxSearchFn' />
+      <image src="/images/icons/close.png" class="clear-seach-box" bindtap='clearInput'></image>
+    </view>
+    <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+  </view>
+</view>
+
+<view class="container">
+  <view class='tips' hidden='{{hasSchollInfo}}'> 获取本专业书籍，请填写学校信息</view>
+  <view class='main-container'>
+    <view class='header' hidden='{{hasSchollInfo?flase:true}}'>
+      <block wx:for="{{choose}}" wx:key="key">
+        <view class='header-item' bindtap='headerTab' data-id='{{index}}'>
+          <text>{{item}}</text>
+          <image src='/images/icons/drop-down.png'></image>
+        </view>
+      </block>
+    </view>
+    <view>
+      <!-- <block wx:for='' wx:key='key'>
+
+      </block> -->
+    </view>
+    <view class='horizontal-line' style='width:100%' />
+    <view></view>
+
+    <template is="books" data="{{books}}" />
+  </view>
+
+</view>
+<loading hidden="{{loadingHidden}}">
+  加载中...
+</loading>

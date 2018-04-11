@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/oder/oder",
     "pages/search/search",
     "pages/book-detail/book-detail",
-    "pages/category/category",
     "pages/my/my",
     "pages/wish/wish"
   ],
@@ -16,15 +16,15 @@
     "list": [
       {
         "pagePath": "pages/wish/wish",
-        "text": "心愿",
+        "text": "想要",
         "iconPath": "images/icons/wish.png",
         "selectedIconPath": "images/icons/wish-selected.png"
       },
       {
-        "pagePath": "pages/category/category",
-        "text": "类别",
-        "iconPath": "images/icons/category.png",
-        "selectedIconPath": "images/icons/category-selected.png"
+        "pagePath": "pages/oder/oder",
+        "text": "书单",
+        "iconPath": "images/icons/list.png",
+        "selectedIconPath": "images/icons/list-selected.png"
       },
       {
         "pagePath": "pages/my/my",
