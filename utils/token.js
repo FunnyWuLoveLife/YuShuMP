@@ -6,8 +6,8 @@ import { Config } from 'config.js';
 
 class Token {
     constructor() {
-        this.verifyUrl = Config.restUrl + 'token/verify';
-        this.tokenUrl = Config.restUrl + 'token/user';
+        this.verifyUrl = Config.restUrl + 'user/token/verify';
+        this.tokenUrl = Config.restUrl + 'user/token/onLogin';
     }
 
     verify() {

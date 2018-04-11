@@ -1,34 +1,10 @@
 //app.js
 import { Base } from './utils/base.js';
+import { Token } from './utils/token.js';
 var base = new Base()
 
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          var param = {
-            url: 'user/onLogin',
-            type: 'POST',
-            data: { code: res.code },
-            sCallback: function (data) {
-              console.log(data)
-            }
-          };
-          base.request(param);
-
-
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
 
     // 获取用户信息
     wx.getSetting({
@@ -51,8 +27,11 @@ App({
       }
     })
   },
+  userInfoReadyCallback: function (data) {
+    console.log(data)
+  },
   globalData: {
     userInfo: null,
-    hasSchollInfo: true
+    hasSchollInfo: true,
   }
 })
