@@ -1,0 +1,51 @@
+<!--pages/book-detail/book-detail.wxml-->
+<view class='container'>
+  <!-- 头部  -->
+  <view class='book-head'>
+    <image mode="aspectFill" src='{{book.image}}'></image>
+    <view class='book-info'>
+      <text style='font-size: 16px;'>{{book.title}}</text>
+
+      <view class='description-font-margin'>
+        <view>
+          <text>作者: </text>
+          <text>{{book.author}}</text>
+        </view>
+        <view>
+          <text>出版社: </text>
+          <text>{{book.publisher}}</text>
+        </view>
+        <view>
+          <text>出版年: </text>
+          <text>{{book.title}}</text>
+        </view>
+        <view>
+          <text>页数: </text>
+          <text>{{book.title}}</text>
+        </view>
+        <view>
+          <text>定价: </text>
+          <text>{{book.price}}</text>
+        </view>
+        <view>
+          <text>精装: </text>
+          <text>{{book.title}}</text>
+        </view>
+        <view>
+          <text>ISBN: </text>
+          <text>{{book.isbn}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 简介  -->
+  <view class='book-summary'>
+    <text>内容简介</text>
+    
+    <text class='book-summary-content'>{{book.summary}}</text>
+  </view>
+</view>
+<loading hidden="{{loadingHidden}}">
+  加载中...
+</loading>

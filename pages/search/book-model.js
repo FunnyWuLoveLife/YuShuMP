@@ -16,6 +16,16 @@ class Book extends Base {
     };
     this.request(param);
   }
+
+  searchBookByISBN(isbn,callback){
+    var param = {
+      url: 'book/details?isbn=' + isbn,
+      sCallback: function (data) {
+        callback && callback(data.data);
+      }
+    };
+    this.request(param);
+  }
 }
 
 export {

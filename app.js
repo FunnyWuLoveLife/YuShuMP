@@ -1,5 +1,4 @@
 //app.js
-var Config = require('config.js')
 
 App({
   onLaunch: function () {

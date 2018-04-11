@@ -52,7 +52,7 @@
   加载中...
 </loading>
 <view class="container">
-  <view hidden='{{book.hide}}'>
+  <view style="display:{{wxSearchData.view.isShow ? 'none':'block'}}" >
     <template is="books" data="{{books:book.data.books}}" />
   </view>
 

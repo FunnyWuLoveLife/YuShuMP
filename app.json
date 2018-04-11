@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/search/search",
+    "pages/book-detail/book-detail",
     "pages/category/category",
     "pages/my/my",
     "pages/wish/wish"

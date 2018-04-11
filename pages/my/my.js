@@ -1,6 +1,4 @@
 // pages/my/my.js
-var Config = require('../../config.js')
-
 
 const app = getApp()
 
@@ -32,15 +30,7 @@ Page({
     }
   },
   sendUserInfo: function (data) {
-    // wx.request({
-    //   url: Config.baseUrl + '/user/wx/inof',
-    //   method: 'POST',
-    //   dataType: 'json',
-    //   data: data,
-    //   success: function (res) {
-    //     console.log('发送成功', res)
-    //   }
-    // })
+
   },
   getUserInfo: function (e) {
     console.log(e)

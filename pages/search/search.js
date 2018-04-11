@@ -11,7 +11,7 @@ Page({
     wxSearchData: {
       view: {
         barHeight: 53,
-        isShow: false,
+        isShow: true,
         isShowSearchHistory: false,
         isShowSearchKey: true,
         seachHeight: 451
@@ -49,25 +49,30 @@ Page({
   /* 业务逻辑 start */
   search: function (q) {
     var that = this
+    this.setData({
+      loadingHidden: false
+    })
     book.searchBook(q, (res) => {
       var temData = that.data.book
       temData.hide = false
       temData.data = res.data
       that.setData({
-        book: temData
+        book: temData,
+        loadingHidden: true
       })
       that.wxSearchHiddenPancel()
       that.wxSearchAddHisKey(q);
     })
   },
-  /* 扫一扫事件 */
+  /* 扫一扫事件，跳转 */
   sweep: function (e) {
     // 允许从相机和相册扫码
     wx.scanCode({
       success: (res) => {
         var isbn = res.result
-        // TODO完善扫码逻辑
-        console.log('isbn', isbn)
+        wx.navigateTo({
+          url: '/pages/book-detail/book-detail?isbn=' + isbn,
+        })
       }
     })
   },
@@ -182,6 +187,7 @@ Page({
       key: 'wxSearchHisKeys',
       success: function (res) {
         var temData = that.data.wxSearchData;
+        temData.view.isShowSearchHistory = false;
         temData.his = [];
         that.setData({
           wxSearchData: temData
@@ -222,4 +228,11 @@ Page({
       }
     })
   },
+  /* 点击跳转 */
+  tabBook: function (e) {
+    var isbn = book.getDataSet(e, 'isbn')
+    wx.navigateTo({
+      url: '/pages/book-detail/book-detail?isbn=' + isbn,
+    })
+  }
 })

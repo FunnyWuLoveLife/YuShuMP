@@ -1,5 +1,5 @@
 // pages/category/category.js
-var Config = require('../../config.js')
+
 var app = getApp()
 Page({
   data: {
