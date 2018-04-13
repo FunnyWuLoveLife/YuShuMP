@@ -16,60 +16,44 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    var isbn = '9787101003079'
+    // book.searchBookByISBN(isbn, (data) => {
     book.searchBookByISBN(options.isbn, (data) => {
       that.setData({
-        book: data,
+        book: data.book,
+        gift: data.gift,
+        wish: data.wish,
         loadingHidden: true
       })
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
 
+  },
+  /* 赠送此书 */
+  donate: function (e) {
+    var that = this
+    book.donateBook(this.data.book.isbn, (res) => {
+      var gift = that.data.gift
+      gift.num = res.num
+      that.setData({
+        gift: gift
+      })
+    })
+  },
+  /* 加入心愿单 */
+  addWish: function (e) {
+    console.log('add wish')
+    var that = this
+    book.wish(this.data.book.isbn, (res) => {
+      var wish = that.data.wish
+      wish.num = res.num
+      that.setData({
+        wish: wish
+      })
+    })
   }
 })

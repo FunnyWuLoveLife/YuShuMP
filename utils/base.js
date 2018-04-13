@@ -29,10 +29,10 @@ class Base {
         wx.request({
             url: url,
             data: params.data,
-            method: params.type,
+            method: params.type,    
             header: {
                 'content-type': 'application/json',
-                // 'token': wx.getStorageSync('token')
+                'token': wx.getStorageSync('token')
             },
             success: function (res) {
 

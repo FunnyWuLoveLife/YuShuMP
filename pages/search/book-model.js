@@ -9,7 +9,7 @@ class Book extends Base {
 
   searchBook(q, callback) {
     var param = {
-      url: 'book/search?q=' +q,
+      url: 'book/search?q=' + q,
       sCallback: function (data) {
         callback && callback(data);
       }
@@ -17,9 +17,31 @@ class Book extends Base {
     this.request(param);
   }
 
-  searchBookByISBN(isbn,callback){
+  searchBookByISBN(isbn, callback) {
     var param = {
       url: 'book/details?isbn=' + isbn,
+      sCallback: function (data) {
+        callback && callback(data.data);
+      }
+    };
+    this.request(param);
+  }
+
+  donateBook(isbn, callback) {
+    var param = {
+      url: 'book/donate?isbn=' + isbn,
+      type: 'GET',
+      sCallback: function (data) {
+        callback && callback(data.data);
+      }
+    };
+    this.request(param);
+  }
+
+  wish(isbn, callback) {
+    var param = {
+      url: 'book/wish?isbn=' + isbn,
+      type: 'GET',
       sCallback: function (data) {
         callback && callback(data.data);
       }

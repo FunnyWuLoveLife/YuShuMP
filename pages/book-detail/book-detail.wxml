@@ -38,11 +38,19 @@
       </view>
     </view>
   </view>
-
+  <!-- 余量  -->
+  <view class='gift'>
+    <view class='gift-item' bindtap='donate'>
+      <text>赠送此书 {{gift.num}} </text>
+    </view>
+    <view class='gift-item' bindtap='addWish'>
+      <text>加入心愿单 {{wish.num}}</text>
+    </view>
+  </view>
   <!-- 简介  -->
   <view class='book-summary'>
     <text>内容简介</text>
-    
+
     <text class='book-summary-content'>{{book.summary}}</text>
   </view>
 </view>

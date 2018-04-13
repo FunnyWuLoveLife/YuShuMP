@@ -41,3 +41,24 @@
   margin: 10px;
   font-size: 10px;
 }
+
+.gift {
+  width: 100%;
+  margin-top: 10px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.gift-item {
+  border: 1px solid #8baca1;
+  border-radius: 5%;
+  height: 30px;
+}
+
+.gift-item text {
+  margin: 0 10px;
+  top: 50%;
+  left: 50%;
+}

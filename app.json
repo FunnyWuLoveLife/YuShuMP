@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/oder/oder",
     "pages/search/search",
     "pages/book-detail/book-detail",
+    "pages/oder/oder",
     "pages/my/my",
     "pages/wish/wish"
   ],

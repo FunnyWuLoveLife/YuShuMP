@@ -15,13 +15,21 @@
   height: 260rpx;
   /* border-radius: 120rpx; */
 }
+
 .book text {
   width: 220rpx;
   height: 260rpx;
   font-size: 30rpx;
 }
+
 .book-items.middle {
   width: 30%;
   margin-bottom: 20rpx;
   text-align: center;
+}
+
+.book-container text {
+   overflow: hidden; 
+   text-overflow: ellipsis; 
+  white-space: nowrap;
 }

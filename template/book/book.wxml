@@ -5,6 +5,6 @@
         <image bindtap='tabBook' src="{{item.image}}" mode="aspectFill" data-isbn='{{item.isbn}}'></image>
         <text>{{item.title}}</text>
       </view>
-    </block>
+    </block>  
   </view>
 </template>

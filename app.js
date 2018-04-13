@@ -2,10 +2,15 @@
 import { Base } from './utils/base.js';
 import { Token } from './utils/token.js';
 var base = new Base()
+var token = new Token()
 
 App({
   onLaunch: function () {
+    token.verify()
 
+
+  },
+  sendUserInfo: function () {
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -18,17 +23,18 @@ App({
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
+              var params = {
+                url: 'user/info',
+                type: 'POST',
+                data: data
               }
+              base.request(params)
             }
           })
         }
       }
     })
-  },
-  userInfoReadyCallback: function (data) {
-    console.log(data)
+
   },
   globalData: {
     userInfo: null,
