@@ -1,30 +1,38 @@
 {
   "pages": [
-    "pages/search/search",
-    "pages/book-detail/book-detail",
-    "pages/oder/oder",
+    "pages/recent/recent",
     "pages/my/my",
-    "pages/wish/wish"
+    "pages/book-detail/book-detail",
+    "pages/search/search",
+    "pages/wish/wish",
+    "pages/gift/gift"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "YuShu",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/wish/wish",
-        "text": "想要",
-        "iconPath": "images/icons/wish.png",
-        "selectedIconPath": "images/icons/wish-selected.png"
+        "pagePath": "pages/recent/recent",
+        "text": "最近上传",
+        "iconPath": "images/icons/recent.png",
+        "selectedIconPath": "images/icons/recent-selected.png"
       },
       {
-        "pagePath": "pages/oder/oder",
-        "text": "书单",
-        "iconPath": "images/icons/list.png",
-        "selectedIconPath": "images/icons/list-selected.png"
+        "pagePath": "pages/gift/gift",
+        "text": "赠送清单",
+        "iconPath": "images/icons/gift.png",
+        "selectedIconPath": "images/icons/gift-selected.png"
+      },
+      {
+        "pagePath": "pages/wish/wish",
+        "text": "心愿清单",
+        "iconPath": "images/icons/wish.png",
+        "selectedIconPath": "images/icons/wish-selected.png"
       },
       {
         "pagePath": "pages/my/my",

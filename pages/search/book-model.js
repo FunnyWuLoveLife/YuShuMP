@@ -1,6 +1,4 @@
-import {
-  Base
-} from '../../utils/base.js';
+import { Base } from '../../utils/base.js';
 
 class Book extends Base {
   constructor() {
@@ -21,7 +19,7 @@ class Book extends Base {
     var param = {
       url: 'book/details?isbn=' + isbn,
       sCallback: function (data) {
-        callback && callback(data.data);
+        callback && callback(data);
       }
     };
     this.request(param);
@@ -29,10 +27,10 @@ class Book extends Base {
 
   donateBook(isbn, callback) {
     var param = {
-      url: 'book/donate?isbn=' + isbn,
+      url: 'book/gift?isbn=' + isbn,
       type: 'GET',
       sCallback: function (data) {
-        callback && callback(data.data);
+        callback && callback(data);
       }
     };
     this.request(param);
@@ -43,7 +41,18 @@ class Book extends Base {
       url: 'book/wish?isbn=' + isbn,
       type: 'GET',
       sCallback: function (data) {
-        callback && callback(data.data);
+        callback && callback(data);
+      }
+    };
+    this.request(param);
+  }
+
+  recentGift(callback) {
+    var param = {
+      url: 'book/recent',
+      type: 'GET',
+      sCallback: function (res) {
+        callback && callback(res);
       }
     };
     this.request(param);

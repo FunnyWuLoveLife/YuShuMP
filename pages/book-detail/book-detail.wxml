@@ -1,5 +1,5 @@
 <!--pages/book-detail/book-detail.wxml-->
-<view class='container'>
+<view class='container' hidden='{{hideBackground}}'>
   <!-- 头部  -->
   <view class='book-head'>
     <image mode="aspectFill" src='{{book.image}}'></image>
@@ -35,16 +35,20 @@
           <text>ISBN: </text>
           <text>{{book.isbn}}</text>
         </view>
+        <view>
+          <text>{{wish.num}}</text>人想要/
+          <text>{{gift.num}}</text>人可赠送
+        </view>
       </view>
     </view>
   </view>
   <!-- 余量  -->
   <view class='gift'>
     <view class='gift-item' bindtap='donate'>
-      <text>赠送此书 {{gift.num}} </text>
+      <text>赠送此书  </text>
     </view>
     <view class='gift-item' bindtap='addWish'>
-      <text>加入心愿单 {{wish.num}}</text>
+      <text>加入心愿单</text>
     </view>
   </view>
   <!-- 简介  -->

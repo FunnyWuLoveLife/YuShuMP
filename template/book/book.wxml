@@ -1,10 +1,10 @@
 <template name="books">
   <view class='book-container'>
     <block wx:for="{{books}}" wx:key="key">
-      <view  class="book {{index%3==1?'middle':''}}" >
+      <view class="book {{index%3==1?'middle':''}}">
         <image bindtap='tabBook' src="{{item.image}}" mode="aspectFill" data-isbn='{{item.isbn}}'></image>
-        <text>{{item.title}}</text>
+        <text space='false'>{{item.title}}</text>
       </view>
-    </block>  
+    </block>
   </view>
 </template>
