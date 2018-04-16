@@ -2,6 +2,9 @@
 import { Book } from '../search/book-model.js';
 import { User } from '../my/user-model.js';
 import { ErrorCode } from '../../utils/error.js';
+import { Trade } from '../gift/trade-model.js'
+
+var trade = new Trade()
 var book = new Book()
 
 var user = new User()
@@ -128,7 +131,7 @@ Page({
         wx.showToast({
           title: res.msg,
           icon: 'none',
-          duration: 2000
+          duration: 3000
         })
       } else {
         wx.showToast({
@@ -141,10 +144,46 @@ Page({
   },
   /* 请求此书 */
   requestBook: function (e) {
-    console.log(e)
+    var that = this
+    var uid = trade.getDataSet(e, 'uid')
+    var isbn = trade.getDataSet(e, 'isbn')
+    trade.requestBook(uid, isbn, (res) => {
+      if (res.code == 200) {
+        wx.showToast({
+          title: '成功发起求赠请求',
+          icon: 'success',
+          duration: 2000
+        })
+      } else {
+        // TODO 
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
   },
   /* 捐赠此书 */
   donateBook: function (e) {
-    console.log(e)
+    var that = this
+    var uid = trade.getDataSet(e, 'uid')
+    var isbn = trade.getDataSet(e, 'isbn')
+    trade.donateBook(uid, isbn, (res) => {
+      if (res.code == 200) {
+        wx.showToast({
+          title: '成功发起赠送请求',
+          icon: 'success',
+          duration: 2000
+        })
+      } else {
+        // TODO
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
   }
 })

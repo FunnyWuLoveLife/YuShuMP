@@ -25,6 +25,30 @@ class Trade extends Base {
     };
     this.request(param);
   }
+
+  requestBook(uid, isbn, callback) {
+    var param = {
+      url: 'book/requestBook',
+      type: 'POST',
+      data: { 'uid': uid, 'isbn': isbn },
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(param);
+  }
+
+  donateBook(uid, isbn, callback) {
+    var param = {
+      url: 'book/donateBook',
+      type: 'POST',
+      data: { 'uid': uid, 'isbn': isbn },
+      sCallback: function (data) {
+        callback && callback(data);
+      }
+    };
+    this.request(param);
+  }
 }
 
 export {

@@ -26,10 +26,15 @@ App({
           // 对个人信息进行注册，注册成功便保存
           user.saveUserInfo(res, (data) => {
             // 判断注册是否成功，成功就存储用户信息
-            that.globalData.userInfo = data.data
-            that.globalData.hasUserInfo = true
-            // 保存信息至本地缓存
-            that.saveUserInfo()
+            if (data.code == 200) {
+              console.log(data)
+              that.globalData.userInfo = data.data
+              that.globalData.hasUserInfo = true
+              // 保存信息至本地缓存
+              that.saveUserInfo()
+            } else {
+              console.log(data)
+            }
           })
         }
       })

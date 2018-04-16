@@ -17,7 +17,7 @@ Page({
     var that = this
     token.verify()
     // this._loadRecent()
-    // app.updateUserInfo()
+    app.updateUserInfo()
   },
   onShow: function () {
     // token.verify()

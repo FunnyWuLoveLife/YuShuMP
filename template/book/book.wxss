@@ -1,6 +1,7 @@
 .book-container {
   overflow: hidden;
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
 }
 
@@ -29,7 +30,8 @@
 }
 
 .book-container text {
-   /* overflow: hidden; 
+  /* overflow: hidden; 
    text-overflow: ellipsis; 
   white-space: nowrap; */
 }
+

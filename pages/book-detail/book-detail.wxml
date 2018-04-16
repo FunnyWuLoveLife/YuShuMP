@@ -1,5 +1,6 @@
 <!--pages/book-detail/book-detail.wxml-->
-<view class='.container-detail' hidden='{{hideBackground}}'>
+<view class='horizontal-line' />
+<view class='container-detail' hidden='{{hideBackground}}'>
   <!-- 头部  -->
   <view class='book-head'>
     <image mode="aspectFill" src='{{book.image}}'></image>
@@ -45,7 +46,7 @@
   <!-- 余量  -->
   <view class='gift' hidden='{{hiddenGift}}'>
     <view class='gift-item' bindtap='donate'>
-      <text>赠送此书  </text>
+      <text>赠送此书</text>
     </view>
     <view class='gift-item' bindtap='addWish'>
       <text>加入心愿单</text>
@@ -70,7 +71,7 @@
                 <text class='list-name'>{{item.user_name}}</text>
                 <text class='upload'>上传于{{item.time}}</text>
                 <view class='button'>
-                  <text bindtap='donateBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>请求此书</text>
+                  <text bindtap='requestBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>请求此书</text>
                 </view>
               </view>
             </block>
@@ -89,7 +90,7 @@
                 <text class='list-name'>{{item.user_name}}</text>
                 <text class='upload'>上传于{{item.time}}</text>
                 <view class='button'>
-                  <text bindtap='requestBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>赠送此书</text>
+                  <text bindtap='donateBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>赠送此书</text>
                 </view>
               </view>
             </block>

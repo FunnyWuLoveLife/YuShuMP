@@ -1,3 +1,4 @@
 /* pages/wish/wish.wxss */
+@import "/template/book/book.wxss";
 
 
