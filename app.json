@@ -1,16 +1,16 @@
 {
   "pages": [
+    "pages/gift/gift",
     "pages/recent/recent",
-    "pages/my/my",
     "pages/book-detail/book-detail",
+    "pages/my/my",
     "pages/search/search",
-    "pages/wish/wish",
-    "pages/gift/gift"
+    "pages/wish/wish"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "YuShu",
+    "navigationBarTitleText": "二书Book",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": false
   },

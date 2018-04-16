@@ -1,10 +1,12 @@
 // pages/recent/recent.js
 import { Book } from '../search/book-model.js';
 import { User } from '../my/user-model.js';
+import { Token } from '../../utils/token.js';
 
+var token = new Token()
 var book = new Book()
 var user = new User()
-var app = getApp()
+const app = getApp()
 
 Page({
   data: {
@@ -13,11 +15,14 @@ Page({
   },
   onLoad: function (options) {
     var that = this
-    this._loadRecent()
-    this._loadUserInfo()
+    token.verify()
+    // this._loadRecent()
+    // app.updateUserInfo()
   },
   onShow: function () {
-
+    // token.verify()
+    this._loadRecent()
+    app.updateUserInfo()
   },
   /* 点击搜索栏跳转到搜索页面 */
   wxSearchFn: function (e) {
@@ -50,29 +55,6 @@ Page({
         books: res.data,
       })
     })
-  },
-  _loadUserInfo: function () {
-    var that = this
-    var userInfo = wx.getStorageSync('userInfo');
-    if (!userInfo) {
-      // 获取用户信息，并发送值服务器注册账户
-      wx.getUserInfo({
-        success: res => {
-          // 对个人信息进行注册，注册成功便保存
-          user.saveUserInfo(res, (data) => {
-            // 判断注册是否成功，成功就存储用户信息
-            app.globalData.userInfo = data.data
-            app.globalData.hasUserInfo = true
-            wx.setStorageSync('userInfo', data.data);
-          })
-        }
-      })
-    }
-    else {
-      app.globalData.userInfo = userInfo
-      app.globalData.hasUserInfo = true
-    }
-    // wx.setStorageSync('token', res.data.token);
   },
   /* 点击跳转 */
   tabBook: function (e) {

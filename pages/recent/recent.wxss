@@ -1,6 +1,10 @@
 /* pages/recent/recent.wxss */
 @import "/template/book/book.wxss";
 
+.container {
+  margin-top: 10px;
+}
+
 .wxSearch-section {
   background-color: #fff;
   padding: 5px 10px;
@@ -36,13 +40,6 @@
   border: none !important;
   color: cornflowerblue !important;
   margin: auto;
-}
-
-.tips {
-  position: absolute;
-  top: 50%;
-  color: #8e8e8e;
-  font-size: 12px;
 }
 
 .horizontal-line {

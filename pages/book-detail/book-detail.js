@@ -1,7 +1,11 @@
 // pages/book-detail/book-detail.js
 import { Book } from '../search/book-model.js';
+import { User } from '../my/user-model.js';
 import { ErrorCode } from '../../utils/error.js';
 var book = new Book()
+
+var user = new User()
+const app = getApp()
 
 Page({
 
@@ -18,9 +22,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    var isbn = '9787103079'
-    // book.searchBookByISBN(isbn, (res) => {
-    book.searchBookByISBN(options.isbn, (res) => {
+    // options.isbn = '9787121068744'
+    that.searchBook(options.isbn)
+  },
+  searchBook: function (isbn) {
+    var that = this
+    book.searchBookByISBN(isbn, (res) => {
       if (res.code == ErrorCode.BOOK_NOT_FIND || res.code == ErrorCode.ISBN_CODE_ERROR) {
         that.setData({
           loadingHidden: true,
@@ -38,10 +45,15 @@ Page({
           })
         }, 2000)
       }
+      var hiddenGift = false
+      if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
+        hiddenGift = true
+      }
       that.setData({
         book: res.data.book,
         gift: res.data.gift,
         wish: res.data.wish,
+        hiddenGift: hiddenGift,
         loadingHidden: true,
         hideBackground: false
       })
@@ -65,6 +77,12 @@ Page({
           duration: 2000
         })
       } else {
+        user.updateUserInfo((res) => {
+          if (res.code == 200) {
+            app.updateStorageUserInfo(res.data)
+          }
+        })
+        that.searchBook(that.data.book.isbn)
         wx.showToast({
           title: '成功添加至赠送清单',
           icon: 'success',
@@ -83,13 +101,14 @@ Page({
     var that = this
     book.wish(this.data.book.isbn, (res) => {
       var wish = that.data.wish
-      if (res.code == ErrorCode.ALREADY_IN_GIFT_OR_WISH) {
-        wx.showToast({
-          title: '书籍已经添加至赠送清单或存在于心意清单',
-          icon: 'none',
-          duration: 2000
+      if (res.code == 200) {
+        // 更新用户数据
+        user.updateUserInfo((res) => {
+          if (res.code == 200) {
+            app.updateStorageUserInfo(res.data)
+          }
         })
-      } else {
+        that.searchBook(that.data.book.isbn)
         wx.showToast({
           title: '成功添加至心意清单',
           icon: 'success',
@@ -99,7 +118,33 @@ Page({
         that.setData({
           wish: wish
         })
+      } else if (res.code == ErrorCode.ALREADY_IN_GIFT_OR_WISH) {
+        wx.showToast({
+          title: '书籍已经添加至赠送清单或存在于心意清单',
+          icon: 'none',
+          duration: 2000
+        })
+      } else if (res.code == ErrorCode.BEANS_NOT_ENOUGH) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      } else {
+        wx.showToast({
+          title: '服务器未知错误',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
+  },
+  /* 请求此书 */
+  requestBook: function (e) {
+    console.log(e)
+  },
+  /* 捐赠此书 */
+  donateBook: function (e) {
+    console.log(e)
   }
 })

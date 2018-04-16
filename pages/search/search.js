@@ -1,7 +1,5 @@
 // pages/search/search.js
-import {
-  Book
-} from 'book-model.js';
+import { Book } from 'book-model.js';
 var book = new Book(); //实例化 home 的推荐页面
 
 var __mindKeys = [];

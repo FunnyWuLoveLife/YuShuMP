@@ -1,1 +1,2 @@
 /* pages/gift/gift.wxss */
+@import "/template/book/book.wxss";

@@ -1,2 +1,7 @@
 <!--pages/wish/wish.wxml-->
-<text>pages/wish/wish.wxml</text>
+<import src="/template/book/book.wxml" />
+
+<view class='container'>
+  <view class='horizontal-line' />
+  <view class='tips' hidden='{{hasWishes}}'> 心愿清单空空如也，快去看看喜欢的书</view>
+</view>

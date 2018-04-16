@@ -16,6 +16,17 @@ class User extends Base {
     };
     this.request(param);
   }
+
+  updateUserInfo(callback) {
+    var param = {
+      url: 'user/info',
+      type: 'GET',
+      sCallback: function (res) {
+        callback && callback(res);
+      }
+    };
+    this.request(param);
+  }
 }
 export {
   User

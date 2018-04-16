@@ -14,6 +14,12 @@ Page({
       hasUserInfo: app.globalData.hasUserInfo
     })
   },
+  onShow: function () {
+    this.setData({
+      userInfo: app.globalData.userInfo,
+      hasUserInfo: app.globalData.hasUserInfo
+    })
+  },
   getUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -21,5 +27,17 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  clearStorage: function (e) {
+    try {
+      wx.clearStorageSync()
+      wx.showToast({
+        title: '清空缓存成功',
+        icon: 'success',
+        duration: 2000
+      })
+    } catch (e) {
+      // Do something when catch error
+    }
   }
 })

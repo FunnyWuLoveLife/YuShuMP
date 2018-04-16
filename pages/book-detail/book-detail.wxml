@@ -1,5 +1,5 @@
 <!--pages/book-detail/book-detail.wxml-->
-<view class='container' hidden='{{hideBackground}}'>
+<view class='.container-detail' hidden='{{hideBackground}}'>
   <!-- 头部  -->
   <view class='book-head'>
     <image mode="aspectFill" src='{{book.image}}'></image>
@@ -17,11 +17,11 @@
         </view>
         <view>
           <text>出版年: </text>
-          <text>{{book.title}}</text>
+          <text>{{book.pubdate}}</text>
         </view>
         <view>
           <text>页数: </text>
-          <text>{{book.title}}</text>
+          <text>{{book.pages}}</text>
         </view>
         <view>
           <text>定价: </text>
@@ -29,7 +29,7 @@
         </view>
         <view>
           <text>精装: </text>
-          <text>{{book.title}}</text>
+          <text>{{book.binding}}</text>
         </view>
         <view>
           <text>ISBN: </text>
@@ -43,7 +43,7 @@
     </view>
   </view>
   <!-- 余量  -->
-  <view class='gift'>
+  <view class='gift' hidden='{{hiddenGift}}'>
     <view class='gift-item' bindtap='donate'>
       <text>赠送此书  </text>
     </view>
@@ -51,12 +51,61 @@
       <text>加入心愿单</text>
     </view>
   </view>
+  <view class='gift-container'>
+    <view class='gitf' hidden='{{hiddenGift?false:true}}'>
+      <text hidden='{{gift.has_in_gifts?false:true}}'>已添加至赠送清单</text>
+      <text hidden='{{wish.has_in_wishes?false:true}}'>已添加至心愿清单</text>
+    </view>
+
+    <!-- 赠送，索要列表  -->
+    <view class='gift-wish-list-container' hidden='{{hiddenGift?false:true}}'>
+      <!-- 索要图书  -->
+      <view hidden='{{wish.has_in_wishes?false:true}}'>
+        <view hidden='{{gift.trade_gifts.total == 0}}'>
+          <text class='list-title'>向他们请求此书</text>
+          <view class='horizontal-line' />
+          <view class='gift-wish-list'>
+            <block wx:for="{{gift.trade_gifts.trades}}" wx:key="key">
+              <view class='list-item'>
+                <text class='list-name'>{{item.user_name}}</text>
+                <text class='upload'>上传于{{item.time}}</text>
+                <view class='button'>
+                  <text bindtap='donateBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>请求此书</text>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+
+      </view>
+      <!-- 赠送图书  -->
+      <view hidden='{{gift.has_in_gifts?false:true}}'>
+        <view hidden='{{wish.trade_wishes.total == 0}}'>
+          <text class='list-title'>向他们赠送此书</text>
+          <view class='horizontal-line' />
+          <view class='gift-wish-list'>
+            <block wx:for="{{wish.trade_wishes.trades}}" wx:key="key">
+              <view class='list-item'>
+                <text class='list-name'>{{item.user_name}}</text>
+                <text class='upload'>上传于{{item.time}}</text>
+                <view class='button'>
+                  <text bindtap='requestBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>赠送此书</text>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
   <!-- 简介  -->
   <view class='book-summary'>
     <text>内容简介</text>
-
     <text class='book-summary-content'>{{book.summary}}</text>
   </view>
+
 </view>
 <loading hidden="{{loadingHidden}}">
   加载中...
