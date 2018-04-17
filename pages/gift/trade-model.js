@@ -26,11 +26,11 @@ class Trade extends Base {
     this.request(param);
   }
 
-  requestBook(uid, isbn, callback) {
+  requestBook(uid, callback) {
     var param = {
       url: 'book/requestBook',
-      type: 'POST',
-      data: { 'uid': uid, 'isbn': isbn },
+      type: 'GET',
+      data: { 'tid': uid },
       sCallback: function (data) {
         callback && callback(data);
       }
@@ -38,11 +38,11 @@ class Trade extends Base {
     this.request(param);
   }
 
-  donateBook(uid, isbn, callback) {
+  donateBook(uid, callback) {
     var param = {
       url: 'book/donateBook',
-      type: 'POST',
-      data: { 'uid': uid, 'isbn': isbn },
+      type: 'GET',
+      data: { 'tid': uid },
       sCallback: function (data) {
         callback && callback(data);
       }

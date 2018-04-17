@@ -84,11 +84,11 @@
 }
 
 .gift-item text {
-  margin: 5px;
-  color: #8baca1;
-  font-weight: 500;
-  background-color: transparent;
-  border: 1px solid #8baca1;
+  color: #fff;
+  margin-left: 10px;
+  padding: 4px 8px 4px 8px;
+  background-color: #8baca1;
+  border-radius: 5px;
 }
 
 .gift-wish-list-container {

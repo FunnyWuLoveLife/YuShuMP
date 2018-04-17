@@ -1,5 +1,9 @@
 // pages/search/search.js
 import { Book } from 'book-model.js';
+import { Base } from '../../utils/base.js';
+
+
+var base = new Base();
 var book = new Book(); //实例化 home 的推荐页面
 
 var __mindKeys = [];
@@ -15,6 +19,7 @@ Page({
         isShowSearchKey: true,
         seachHeight: 451
       },
+      keys: [],
       his: [],
     },
     book: {
@@ -30,6 +35,19 @@ Page({
     var that = this
     //初始化的时候渲染wxSearchdata
     // TODO 获取热门搜索
+    base.request({
+      url: 'hotSearch',
+      type: 'GET',
+      sCallback: function (res) {
+        if (res.code == 200) {
+          var temData = that.data.wxSearchData
+          temData.keys = res.data
+          that.setData({
+            wxSearchData: temData
+          });
+        }
+      }
+    })
     var temData = that.data.wxSearchData
     temData.keys = ['java', '小程序', 'python', 'php', 'web']
     //获取系统信息
@@ -71,6 +89,13 @@ Page({
         var isbn = res.result
         wx.navigateTo({
           url: '/pages/book-detail/book-detail?isbn=' + isbn,
+        })
+      },
+      fail: (res) => {
+        wx.showToast({
+          title: '扫码失败',
+          icon: 'none',
+          duration: 2000
         })
       }
     })

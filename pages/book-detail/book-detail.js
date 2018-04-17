@@ -31,7 +31,20 @@ Page({
   searchBook: function (isbn) {
     var that = this
     book.searchBookByISBN(isbn, (res) => {
-      if (res.code == ErrorCode.BOOK_NOT_FIND || res.code == ErrorCode.ISBN_CODE_ERROR) {
+      if (res.code == 200) {
+        var hiddenGift = false
+        if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
+          hiddenGift = true
+        }
+        that.setData({
+          book: res.data.book,
+          gift: res.data.gift,
+          wish: res.data.wish,
+          hiddenGift: hiddenGift,
+          loadingHidden: true,
+          hideBackground: false
+        })
+      } else {
         that.setData({
           loadingHidden: true,
           hideBackground: true
@@ -48,18 +61,7 @@ Page({
           })
         }, 2000)
       }
-      var hiddenGift = false
-      if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
-        hiddenGift = true
-      }
-      that.setData({
-        book: res.data.book,
-        gift: res.data.gift,
-        wish: res.data.wish,
-        hiddenGift: hiddenGift,
-        loadingHidden: true,
-        hideBackground: false
-      })
+
     })
   },
   /**
@@ -145,14 +147,25 @@ Page({
   /* 请求此书 */
   requestBook: function (e) {
     var that = this
-    var uid = trade.getDataSet(e, 'uid')
-    var isbn = trade.getDataSet(e, 'isbn')
-    trade.requestBook(uid, isbn, (res) => {
+    var id = trade.getDataSet(e, 'id')
+    trade.requestBook(id, (res) => {
       if (res.code == 200) {
         wx.showToast({
-          title: '成功发起求赠请求',
+          title: '索要成功',
           icon: 'success',
           duration: 2000
+        })
+        var hiddenGift = false
+        if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
+          hiddenGift = true
+        }
+        that.setData({
+          book: res.data.book,
+          gift: res.data.gift,
+          wish: res.data.wish,
+          hiddenGift: hiddenGift,
+          loadingHidden: true,
+          hideBackground: false
         })
       } else {
         // TODO 
@@ -167,14 +180,26 @@ Page({
   /* 捐赠此书 */
   donateBook: function (e) {
     var that = this
-    var uid = trade.getDataSet(e, 'uid')
-    var isbn = trade.getDataSet(e, 'isbn')
-    trade.donateBook(uid, isbn, (res) => {
+    var id = trade.getDataSet(e, 'id')
+    console.log(id)
+    trade.donateBook(id, (res) => {
       if (res.code == 200) {
         wx.showToast({
-          title: '成功发起赠送请求',
+          title: '赠送成功',
           icon: 'success',
           duration: 2000
+        })
+        var hiddenGift = false
+        if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
+          hiddenGift = true
+        }
+        that.setData({
+          book: res.data.book,
+          gift: res.data.gift,
+          wish: res.data.wish,
+          hiddenGift: hiddenGift,
+          loadingHidden: true,
+          hideBackground: false
         })
       } else {
         // TODO

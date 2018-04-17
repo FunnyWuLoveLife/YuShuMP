@@ -19,10 +19,16 @@ Page({
     // this._loadRecent()
     app.updateUserInfo()
   },
-  onShow: function () {
+  onShow: function () { 
     // token.verify()
     this._loadRecent()
     app.updateUserInfo()
+  },
+  /**
+ * 用户点击右上角分享
+ */
+  onShareAppMessage: function () {
+
   },
   /* 点击搜索栏跳转到搜索页面 */
   wxSearchFn: function (e) {
@@ -39,6 +45,13 @@ Page({
         var isbn = res.result
         wx.navigateTo({
           url: '/pages/book-detail/book-detail?isbn=' + isbn,
+        })
+      },
+      fail: (res) => {
+        wx.showToast({
+          title: '扫码失败',
+          icon: 'none',
+          duration: 2000
         })
       }
     })

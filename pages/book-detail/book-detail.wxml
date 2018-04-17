@@ -63,7 +63,7 @@
       <!-- 索要图书  -->
       <view hidden='{{wish.has_in_wishes?false:true}}'>
         <view hidden='{{gift.trade_gifts.total == 0}}'>
-          <text class='list-title'>向他们请求此书</text>
+          <text class='list-title'>向他们索要此书</text>
           <view class='horizontal-line' />
           <view class='gift-wish-list'>
             <block wx:for="{{gift.trade_gifts.trades}}" wx:key="key">
@@ -71,7 +71,7 @@
                 <text class='list-name'>{{item.user_name}}</text>
                 <text class='upload'>上传于{{item.time}}</text>
                 <view class='button'>
-                  <text bindtap='requestBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>请求此书</text>
+                  <text bindtap='requestBook' data-id='{{item.id}}' class='list-title'>索要此书</text>
                 </view>
               </view>
             </block>
@@ -90,7 +90,7 @@
                 <text class='list-name'>{{item.user_name}}</text>
                 <text class='upload'>上传于{{item.time}}</text>
                 <view class='button'>
-                  <text bindtap='donateBook' data-uid='{{item.id}}' data-isbn='{{book.isbn}}' class='list-title'>赠送此书</text>
+                  <text bindtap='donateBook' data-id='{{item.id}}' class='list-title'>赠送此书</text>
                 </view>
               </view>
             </block>
