@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/recent/recent",
+    "pages/search/search",
     "pages/gift/gift",
     "pages/book-detail/book-detail",
     "pages/my/my",
-    "pages/search/search",
     "pages/wish/wish"
   ],
   "window": {

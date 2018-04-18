@@ -19,13 +19,16 @@ Page({
         isShowSearchKey: true,
         seachHeight: 451
       },
+      searchPageNum: 0,
       keys: [],
       his: [],
     },
     book: {
       hide: true,
       data: []
-    }
+    },
+    searchLoading: true,  //把"上拉加载"的变量设为true，显示  
+    searchLoadingComplete: false //把“没有数据”设为false，隐藏  
   },
   onLoad: function () {
     this._onLoad()
@@ -69,14 +72,20 @@ Page({
     this.setData({
       loadingHidden: false
     })
-    book.searchBook(q, (res) => {
+    var page = that.data.wxSearchData.searchPageNum + 1
+    book.searchBook(q, page, (res) => {
       var temData = that.data.book
       temData.hide = false
       temData.data = res.data
+      var temWx = that.data.wxSearchData
+      temWx.searchPageNum = page
       that.setData({
+        wxSearchData: temWx,
         book: temData,
-        loadingHidden: true
+        loadingHidden: true,
+        searchLoading: false
       })
+      wx.hideNavigationBarLoading()
       that.wxSearchHiddenPancel()
       that.wxSearchAddHisKey(q);
     })
@@ -103,7 +112,12 @@ Page({
   /* 搜索 */
   wxSearchFn: function (e) {
     var that = this
-    var keyword = that.data.wxSearchData.value
+    var temData = that.data.wxSearchData
+    temData.searchPageNum = 0
+    that.setData({
+      wxSearchData: temData
+    })
+    var keyword = temData.value
     that.search(keyword)
   },
   /* 历史搜索记录点击事件 */
@@ -111,6 +125,7 @@ Page({
 
     var temData = this.data.wxSearchData;
     var keyword = book.getDataSet(e, 'key')
+    temData.searchPageNum = 0
     temData.value = keyword;
     this.setData({
       wxSearchData: temData
@@ -258,5 +273,17 @@ Page({
     wx.navigateTo({
       url: '/pages/book-detail/book-detail?isbn=' + isbn,
     })
+  },
+  /* 下拉刷新事件 */
+  onPullDownRefresh: function (e) {
+    var that = this
+
+    if (!that.data.book.hide) {
+      wx.showNavigationBarLoading()
+      var keyword = that.data.wxSearchData.value
+      that.search(keyword)
+      wx.stopPullDownRefresh()
+    }
+
   }
 })

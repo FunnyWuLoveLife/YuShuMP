@@ -2,7 +2,7 @@
 @import "/template/book/book.wxss";
 
 .wxSearch {
-  position: absolute;
+  /* position: absolute; */
   top: 43px;
   left: 0;
   width: 100%;
@@ -116,3 +116,21 @@
   text-align: center;
   font-size: 12px;
 }
+ .loading{  
+  padding: 10rpx;  
+  text-align: center;  
+}  
+ .loading:before{  
+  display: inline-block;  
+  margin-right: 5rpx;  
+  vertical-align: middle;  
+  content: '';  
+  width: 40rpx;  
+  height: 40rpx;  
+  /* background: url(../../images/icon-loading.png) no-repeat;   */
+  background-size: contain;  
+  animation: rotate 1s linear infinite;  
+}   
+.loading.complete:before{  
+  display: none;  
+}   

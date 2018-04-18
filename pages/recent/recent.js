@@ -19,7 +19,7 @@ Page({
     // this._loadRecent()
     app.updateUserInfo()
   },
-  onShow: function () { 
+  onShow: function () {
     // token.verify()
     this._loadRecent()
     app.updateUserInfo()
@@ -56,7 +56,7 @@ Page({
       }
     })
   },
-  _loadRecent: function () {
+  _loadRecent: function (callback) {
     var that = this
     book.recentGift((res) => {
       if (res.data.length) {
@@ -67,6 +67,7 @@ Page({
       that.setData({
         books: res.data,
       })
+      callback && callback(res);
     })
   },
   /* 点击跳转 */
@@ -78,7 +79,13 @@ Page({
   },
   /* 下拉刷新事件 */
   onPullDownRefresh: function (e) {
-    this._loadRecent()
+    wx.showNavigationBarLoading()
+    setTimeout(() => {
+      this._loadRecent((res) => {
+        wx.hideNavigationBarLoading()
+      })
+    }, 100)
+
     wx.stopPullDownRefresh()
   }
 })

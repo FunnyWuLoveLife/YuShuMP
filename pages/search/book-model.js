@@ -5,9 +5,9 @@ class Book extends Base {
     super();
   }
 
-  searchBook(q, callback) {
+  searchBook(q, page, callback) {
     var param = {
-      url: 'book/search?q=' + q,
+      url: 'book/search?q=' + q + '&page=' + page,
       sCallback: function (data) {
         callback && callback(data);
       }
