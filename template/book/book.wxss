@@ -6,7 +6,7 @@
 }
 
 .book {
-  width: 30%;
+  width: 33%;
   margin-bottom: 20rpx;
   text-align: center;
 }
@@ -34,4 +34,3 @@
    text-overflow: ellipsis; 
   white-space: nowrap; */
 }
-

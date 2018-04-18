@@ -52,7 +52,7 @@ Page({
       }
     })
     var temData = that.data.wxSearchData
-    temData.keys = ['java', '小程序', 'python', 'php', 'web']
+    // temData.keys = ['java', '小程序', 'python', 'php', 'web']
     //获取系统信息
     wx.getSystemInfo({
       success: function (res) {

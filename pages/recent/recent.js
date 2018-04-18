@@ -24,12 +24,7 @@ Page({
     this._loadRecent()
     app.updateUserInfo()
   },
-  /**
- * 用户点击右上角分享
- */
-  onShareAppMessage: function () {
 
-  },
   /* 点击搜索栏跳转到搜索页面 */
   wxSearchFn: function (e) {
     var that = this
@@ -87,5 +82,28 @@ Page({
     }, 100)
 
     wx.stopPullDownRefresh()
-  }
+  },
+  /**
+  * 用户点击右上角分享
+  */
+  onShareAppMessage: function (options) {
+    return {
+      title: '二书Book--大学生图书分享', // 转发标题（默认：当前小程序名称）
+      path: '/pages/recent/recent', // 转发路径（当前页面 path ），必须是以 / 开头的完整路径
+      success(e) {
+        // shareAppMessage: ok,
+        // shareTickets 数组，每一项是一个 shareTicket ，对应一个转发对象
+        // 需要在页面onLoad()事件中实现接口
+        wx.showShareMenu({
+          // 要求小程序返回分享目标信息
+          withShareTicket: true
+        });
+      },
+      fail(e) {
+        // shareAppMessage:fail cancel
+        // shareAppMessage:fail(detail message) 
+      },
+      complete() { }
+    }
+  },
 })

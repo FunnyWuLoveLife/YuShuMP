@@ -30,10 +30,16 @@
 .my-item {
   margin-top: 10px;
   width: 100%;
+  padding: 15px 8px 10px 8px;
   height: 30px;
   background-color: #8e8e8e;
   align-items: center;
   text-align: center;
 }
 
-
+.intr {
+  margin: 50px;
+  /* width: 100%; */
+  text-align: center;
+  color: #8e8e8e;
+}

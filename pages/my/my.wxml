@@ -4,10 +4,15 @@
     <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <view>
       <text class="userinfo-nickname">{{userInfo.nickname}}</text>
-      <text>书豆:{{userInfo.beans}}</text>
     </view>
   </view>
-  <view class='my-item' bindtap='clearStorage'>
+  <view class='my-item' hidden='true' bindtap='clearStorage'>
     <text style='margin-top: 50%;'>清空缓存</text>
+  </view>
+  <view class='my-item'>
+    <text>书豆余额:{{userInfo.beans}}</text>
+  </view>
+  <view class='intr'>
+    <text>{{text}}</text>
   </view>
 </view>

@@ -210,5 +210,38 @@ Page({
         })
       }
     })
-  }
+  },
+  /**
+  * 用户点击右上角分享
+  */
+  onShareAppMessage: function (options) {
+    var that = this
+    var title = ''
+    if (this.data.gift.has_in_gifts) {
+      title = '我在赠送《' + this.data.book.title + '》快来领取吧'
+    } else if (this.data.wish.has_in_wishes) {
+      title = '我正缺《' + this.data.book.title + '》有的小伙伴赠送给我吧'
+    } else {
+      title = '《' + this.data.book.title + '》值得一读，快来领取读读'
+    }
+
+    return {
+      title: title, // 转发标题（默认：当前小程序名称）
+      path: '/pages/book-detail/book-detail?isbn=' + that.data.book.isbn, 
+      success(e) {
+        // shareAppMessage: ok,
+        // shareTickets 数组，每一项是一个 shareTicket ，对应一个转发对象
+        // 需要在页面onLoad()事件中实现接口
+        wx.showShareMenu({
+          // 要求小程序返回分享目标信息
+          withShareTicket: true
+        });
+      },
+      fail(e) {
+        // shareAppMessage:fail cancel
+        // shareAppMessage:fail(detail message) 
+      },
+      complete() { }
+    }
+  },
 })
