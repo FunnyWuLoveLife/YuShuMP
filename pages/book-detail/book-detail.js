@@ -26,20 +26,23 @@ Page({
   onLoad: function (options) {
     var that = this
     // options.isbn = '9787121068744'
-    that.searchBook(options.isbn)
+    that.searchBook(options.isbn, options.gid, options.wid)
   },
-  searchBook: function (isbn) {
+  searchBook: function (isbn, gid, wid) {
     var that = this
-    book.searchBookByISBN(isbn, (res) => {
+    book.searchBookByISBN(isbn, gid, wid, (res) => {
       if (res.code == 200) {
         var hiddenGift = false
         if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
           hiddenGift = true
         }
+        console.log(res)
         that.setData({
           book: res.data.book,
           gift: res.data.gift,
           wish: res.data.wish,
+          recipient: res.data.recipient,
+          sendder: res.data.sendder,
           hiddenGift: hiddenGift,
           loadingHidden: true,
           hideBackground: false
@@ -227,7 +230,7 @@ Page({
 
     return {
       title: title, // 转发标题（默认：当前小程序名称）
-      path: '/pages/book-detail/book-detail?isbn=' + that.data.book.isbn, 
+      path: '/pages/book-detail/book-detail?isbn=' + that.data.book.isbn,
       success(e) {
         // shareAppMessage: ok,
         // shareTickets 数组，每一项是一个 shareTicket ，对应一个转发对象

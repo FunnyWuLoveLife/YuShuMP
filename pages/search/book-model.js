@@ -15,9 +15,16 @@ class Book extends Base {
     this.request(param);
   }
 
-  searchBookByISBN(isbn, callback) {
+  searchBookByISBN(isbn, gid, wid, callback) {
+    var url = 'book/details?isbn=' + isbn
+
+    if (gid != undefined) {
+      url = url + '&gid=' + gid
+    } else if (wid != undefined) {
+      url = url + '&wid=' + wid
+    }
     var param = {
-      url: 'book/details?isbn=' + isbn,
+      url: url,
       sCallback: function (data) {
         callback && callback(data);
       }

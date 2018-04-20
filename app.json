@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/gift/gift",
     "pages/recent/recent",
     "pages/search/search",
-    "pages/gift/gift",
     "pages/book-detail/book-detail",
     "pages/my/my",
     "pages/wish/wish"
