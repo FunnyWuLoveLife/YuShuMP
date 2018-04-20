@@ -1,2 +1,2 @@
 /* pages/gift/gift.wxss */
-@import "/template/book/book.wxss";
+@import "/template/trade-book/trade-book.wxss";

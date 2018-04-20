@@ -104,6 +104,7 @@
   <!-- 简介  -->
   <view class='book-summary'>
     <text>内容简介</text>
+    <view class='horizontal-line' />
     <text class='book-summary-content'>{{book.summary}}</text>
   </view>
 

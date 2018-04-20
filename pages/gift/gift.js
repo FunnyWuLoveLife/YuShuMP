@@ -85,7 +85,6 @@ Page({
   tabBook: function (e) {
     var isbn = book.getDataSet(e, 'isbn')
     var gid = book.getDataSet(e, 'tid')
-    console.log(gid)
     wx.navigateTo({
       url: '/pages/book-detail/book-detail?isbn=' + isbn + '&gid=' + gid,
     })

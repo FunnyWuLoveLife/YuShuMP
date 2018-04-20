@@ -36,14 +36,14 @@ Page({
         if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
           hiddenGift = true
         }
-        console.log(res)
         that.setData({
           book: res.data.book,
           gift: res.data.gift,
           wish: res.data.wish,
           recipient: res.data.recipient,
-          sendder: res.data.sendder,
+          sendder: res.data.sender,
           hiddenGift: hiddenGift,
+          hiddenTrade: res.data.hiddenTrade,
           loadingHidden: true,
           hideBackground: false
         })

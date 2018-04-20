@@ -1,4 +1,4 @@
 /* pages/wish/wish.wxss */
-@import "/template/book/book.wxss";
+@import "/template/trade-book/trade-book.wxss";
 
 

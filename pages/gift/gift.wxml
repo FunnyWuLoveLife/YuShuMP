@@ -1,10 +1,10 @@
 <!--pages/gift/gift.wxml-->
-<import src="/template/book/book.wxml" />
+<import src="/template/trade-book/trade-book.wxml" />
 
 <view class='container'>
   <view class='horizontal-line' />
   <view class='tips' hidden='{{hasGifts}}'> 赠送的不是书籍，是知识与梦想</view>
 
-  <template is="books" data="{{books:books.books}}" />
+  <template is="trade-books" data="{{books:books.books}}" />
 
 </view>

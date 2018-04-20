@@ -53,12 +53,12 @@ class Token {
             code: res.code
           },
           success: function (res) {
-            if (res.statusCode ==200){
+            if (res.statusCode == 200) {
               var res = res.data
               console.log(res)
               wx.setStorageSync('token', res.data.token);
               callBack && callBack(res.data.token);
-            }else{
+            } else {
               console.log('getTokenFromServer error')
             }
           }

@@ -1,0 +1,10 @@
+<template name="trade-books">
+  <view class='book-container'>
+    <block wx:for="{{books}}" wx:key="key">
+      <view class="book {{index%3==1?'middle':''}}">
+        <image bindtap='tabBook' src="{{item.book.image}}" mode="aspectFill" data-tid="{{item.tid}}" data-isbn='{{item.book.isbn}}'></image>
+        <text space='false'>{{item.book.title}}</text>
+      </view>
+    </block>
+  </view>
+</template>
