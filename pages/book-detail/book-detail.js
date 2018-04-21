@@ -36,12 +36,15 @@ Page({
         if (res.data.gift.has_in_gifts || res.data.wish.has_in_wishes) {
           hiddenGift = true
         }
+        if (res.data.hiddenTrade == false){
+          hiddenGift = true
+        }
         that.setData({
           book: res.data.book,
           gift: res.data.gift,
           wish: res.data.wish,
           recipient: res.data.recipient,
-          sendder: res.data.sender,
+          sender: res.data.sender,
           hiddenGift: hiddenGift,
           hiddenTrade: res.data.hiddenTrade,
           loadingHidden: true,

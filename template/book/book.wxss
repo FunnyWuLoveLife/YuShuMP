@@ -21,7 +21,7 @@
 
 .book text {
   width: 220rpx;
-  height: 260rpx;
+  /* height: 260rpx; */
   font-size: 30rpx;
 }
 

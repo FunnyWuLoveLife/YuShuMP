@@ -52,6 +52,18 @@
       <text>加入心愿单</text>
     </view>
   </view>
+  <view class='trade-container' hidden='{{hiddenTrade}}'>
+    <view class='list-item' hidden='{{sender.hasSender?false:true}}'>
+      <text class='list-name'>{{sender.nickname}}</text>
+      <text class='list-name'>赠送于</text>
+      <text class='upload'>{{sender.updateTime}}</text>
+    </view>
+    <view class='list-item' hidden='{{recipient.hasRecipient?false:true}}'>
+      <text class='upload'>{{recipient.updateTime}}</text>
+      <text class='list-name'>赠送给</text>
+      <text class='list-name'>{{recipient.nickname}}</text>
+    </view>
+  </view>
   <view class='gift-container'>
     <view class='gitf' hidden='{{hiddenGift?false:true}}'>
       <text hidden='{{gift.has_in_gifts?false:true}}'>已添加至赠送清单</text>
